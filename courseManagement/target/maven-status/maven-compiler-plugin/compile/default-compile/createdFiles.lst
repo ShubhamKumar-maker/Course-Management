@@ -1,0 +1,14 @@
+com\courseMangement\courseManagement\config\EmailConfig.class
+com\courseMangement\courseManagement\service\CourseService.class
+com\courseMangement\courseManagement\models\Course.class
+com\courseMangement\courseManagement\CourseManagementApplication.class
+com\courseMangement\courseManagement\entities\CourseEntity.class
+com\courseMangement\courseManagement\models\MailStrructure.class
+com\courseMangement\courseManagement\config\SwaggerConfig.class
+com\courseMangement\courseManagement\controller\CourseController.class
+com\courseMangement\courseManagement\repository\CourseRepository.class
+com\courseMangement\courseManagement\repository\SkillRepository.class
+com\courseMangement\courseManagement\entities\Creator.class
+com\courseMangement\courseManagement\entities\Skill.class
+com\courseMangement\courseManagement\util\Mapper.class
+com\courseMangement\courseManagement\repository\CreatorRepository.class

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CourseService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">courseManagement</a> &gt; <a href="index.source.html" class="el_package">com.courseMangement.courseManagement.service</a> &gt; <span class="el_source">CourseService.java</span></div><h1>CourseService.java</h1><pre class="source lang-java linenums">package com.courseMangement.courseManagement.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.courseMangement.courseManagement.entities.CourseEntity;
+import com.courseMangement.courseManagement.models.Course;
+import com.courseMangement.courseManagement.repository.CourseRepository;
+import com.courseMangement.courseManagement.util.Mapper;
+
+@Service
+<span class="fc" id="L24">public class CourseService {</span>
+	@Autowired
+	private CourseRepository courserepository;
+
+	@Autowired
+	private JavaMailSender mailSender;
+
+	public void saveCourse() {
+
+<span class="nc" id="L33">	}</span>
+
+	public List&lt;Course&gt; getCourse() {
+<span class="fc" id="L36">		List&lt;Course&gt; lt = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L37">		courserepository.findAll().forEach(s -&gt; {</span>
+<span class="fc" id="L38">			lt.add(Mapper.mapEntity(s));</span>
+<span class="fc" id="L39">		});</span>
+<span class="fc" id="L40">		return lt;</span>
+
+	}
+
+	public Course getCourseById(long id) {
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">		if (courserepository.findById(id).isPresent()) {</span>
+<span class="fc" id="L46">			Optional&lt;CourseEntity&gt; entity = courserepository.findById(id);</span>
+<span class="fc" id="L47">			return Mapper.mapEntity(entity.get());</span>
+
+		}
+<span class="nc" id="L50">		return null;</span>
+	}
+
+	public List&lt;Course&gt; getCourseByLocation(String location) {
+<span class="fc" id="L54">		List&lt;Course&gt; lt = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L55">		courserepository.findByLocation(location).forEach(l -&gt; {</span>
+<span class="fc" id="L56">			lt.add(Mapper.mapEntity(l));</span>
+<span class="fc" id="L57">		});</span>
+<span class="fc" id="L58">		return lt;</span>
+	}
+
+	public Course addNewCourses(Course course) {
+<span class="fc" id="L62">		CourseEntity courseentity=Mapper.mapObject(course);</span>
+<span class="fc" id="L63">		CourseEntity entity = courserepository.save(courseentity);</span>
+<span class="fc" id="L64">		return Mapper.mapEntity(entity);</span>
+	}
+
+	public Course updateCourse(Course course, long id) {
+<span class="nc bnc" id="L68" title="All 2 branches missed.">		if (!courserepository.findById(id).isEmpty()) {</span>
+<span class="nc" id="L69">			CourseEntity entity = courserepository.save(Mapper.mapObject(course));</span>
+<span class="nc" id="L70">			return Mapper.mapEntity(entity);</span>
+		}
+<span class="nc" id="L72">		return null;</span>
+	}
+
+	public int deleteCourse(long id) {
+<span class="nc bnc" id="L76" title="All 2 branches missed.">		if (!courserepository.findById(id).isEmpty()) {</span>
+<span class="nc" id="L77">			courserepository.deleteById(id);</span>
+<span class="nc" id="L78">			return 1;</span>
+		}
+<span class="nc" id="L80">		return 0;</span>
+	}
+
+	public void sendMail(String subject, String body) {
+<span class="nc" id="L84">		SimpleMailMessage message = new SimpleMailMessage();</span>
+<span class="nc" id="L85">		message.setTo(getparticipantsData());</span>
+<span class="nc" id="L86">		message.setFrom(&quot;r06744423@gmail.com&quot;);</span>
+<span class="nc" id="L87">		message.setSubject(subject);</span>
+<span class="nc" id="L88">		message.setText(body);</span>
+<span class="nc" id="L89">		mailSender.send(message);</span>
+<span class="nc" id="L90">		System.out.println(&quot;mail send&quot;);</span>
+<span class="nc" id="L91">	}</span>
+
+	public String[] getparticipantsData() {
+
+<span class="nc" id="L95">		RestTemplate resttemplate = new RestTemplate();</span>
+<span class="nc" id="L96">		String baseURL = &quot;http://localhost:8901/testParticipants/getparticipantsEmail&quot;;</span>
+<span class="nc" id="L97">		ResponseEntity&lt;String&gt; response = null;</span>
+<span class="nc" id="L98">		response = resttemplate.exchange(baseURL, HttpMethod.GET, getHeaders(), String.class);</span>
+<span class="nc" id="L99">		String participantsEmail = response.getBody().toString();</span>
+<span class="nc" id="L100">		participantsEmail = participantsEmail.replace('&quot;', ' ');</span>
+<span class="nc" id="L101">		participantsEmail = participantsEmail.replace('[', ' ');</span>
+<span class="nc" id="L102">		participantsEmail = participantsEmail.replace(']', ' ');</span>
+<span class="nc" id="L103">		participantsEmail = participantsEmail.trim();</span>
+<span class="nc" id="L104">		String[] email = participantsEmail.split(&quot;,&quot;);</span>
+<span class="nc" id="L105">		System.out.println(&quot;email is println&quot;);</span>
+<span class="nc" id="L106">		System.out.println(email);</span>
+<span class="nc" id="L107">		return email;</span>
+	}
+
+	private static HttpEntity getHeaders() {
+<span class="nc" id="L111">		HttpHeaders headers = new HttpHeaders();</span>
+<span class="nc" id="L112">		headers.set(&quot;Accept&quot;, MediaType.APPLICATION_JSON_VALUE);</span>
+<span class="nc" id="L113">		return new HttpEntity&lt;&gt;(headers);</span>
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

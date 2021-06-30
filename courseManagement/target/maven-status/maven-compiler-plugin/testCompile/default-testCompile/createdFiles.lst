@@ -1,0 +1,4 @@
+com\courseMangement\courseManagement\controller\TestController.class
+com\courseMangement\courseManagement\service\TestService.class
+com\courseMangement\courseManagement\utils\SetData.class
+com\courseMangement\courseManagement\CourseManagementApplicationTests.class

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Course.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">courseManagement</a> &gt; <a href="index.source.html" class="el_package">com.courseMangement.courseManagement.models</a> &gt; <span class="el_source">Course.java</span></div><h1>Course.java</h1><pre class="source lang-java linenums">package com.courseMangement.courseManagement.models;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToMany;
+
+import com.courseMangement.courseManagement.entities.CourseEntity;
+import com.courseMangement.courseManagement.entities.Creator;
+import com.courseMangement.courseManagement.entities.Skill;
+
+<span class="fc" id="L13">public class Course {</span>
+	private Long id;
+	private String description;
+	private String prerequesite;
+	private String feedback;
+	private String location;
+	private Date lastupdated;
+	private List&lt;Skill&gt;skill;
+	private List&lt;Creator&gt;creator;
+	public Long getId() {
+<span class="fc" id="L23">		return id;</span>
+	}
+	public void setId(Long id) {
+<span class="fc" id="L26">		this.id = id;</span>
+<span class="fc" id="L27">	}</span>
+	public String getDescription() {
+<span class="fc" id="L29">		return description;</span>
+	}
+	public void setDescription(String description) {
+<span class="fc" id="L32">		this.description = description;</span>
+<span class="fc" id="L33">	}</span>
+	public String getPrerequesite() {
+<span class="fc" id="L35">		return prerequesite;</span>
+	}
+	public void setPrerequesite(String prerequesite) {
+<span class="fc" id="L38">		this.prerequesite = prerequesite;</span>
+<span class="fc" id="L39">	}</span>
+	public String getFeedback() {
+<span class="fc" id="L41">		return feedback;</span>
+	}
+	public void setFeedback(String feedback) {
+<span class="fc" id="L44">		this.feedback = feedback;</span>
+<span class="fc" id="L45">	}</span>
+	public String getLocation() {
+<span class="fc" id="L47">		return location;</span>
+	}
+	public void setLocation(String location) {
+<span class="fc" id="L50">		this.location = location;</span>
+<span class="fc" id="L51">	}</span>
+	
+	public void setLastupdated(Date lastupdated) {
+<span class="fc" id="L54">		this.lastupdated = lastupdated;</span>
+<span class="fc" id="L55">	}</span>
+	public List&lt;Skill&gt; getSkill() {
+<span class="fc" id="L57">		return skill;</span>
+	}
+	public void setSkill(List&lt;Skill&gt; skill) {
+<span class="fc" id="L60">		this.skill = skill;</span>
+<span class="fc" id="L61">	}</span>
+	public List&lt;Creator&gt; getCreator() {
+<span class="fc" id="L63">		return creator;</span>
+	}
+	public void setCreator(List&lt;Creator&gt; creator) {
+<span class="fc" id="L66">		this.creator = creator;</span>
+<span class="fc" id="L67">	}</span>
+	@Override
+	public String toString() {
+<span class="nc" id="L70">		return &quot;Course [id=&quot; + id + &quot;, description=&quot; + description + &quot;, prerequesite=&quot; + prerequesite + &quot;, feedback=&quot;</span>
+				+ feedback + &quot;, location=&quot; + location + &quot;, lastupdate=&quot; + lastupdated + &quot;, skill=&quot; + skill + &quot;, creator=&quot;
+				+ creator + &quot;]&quot;;
+	}
+	public Date getLastupdated() {
+<span class="fc" id="L75">		return lastupdated;</span>
+	}
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
